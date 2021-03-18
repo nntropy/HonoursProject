@@ -1,0 +1,71 @@
+{% extends "silpa.html" %}
+{% block modulescript %}
+<script>
+    $(document).ready(function() {
+        $("form").submit(function(event)
+        {
+            event.preventDefault();
+            var text= $("textarea[name=input_text]", 'form').val(),
+                jsonRequest = {
+                    module:"libindic.syllabifier",
+                    method: "syllabify",
+                    params : [text],
+                    id : ""
+                },
+                id_result = $('#result'),
+                id_error = $('#errormessage'),
+                id_progress = $('#progress');
+
+            if(text !== "") {
+                $.ajax({
+                    type: "POST",
+                    contentType: "application/json; charset=utf-8",
+                    url: "api",
+                    data: JSON.stringify(jsonRequest),
+                    dataType: "json",
+                    beforeSend:function(){
+                        id_result.hide();
+                        id_error.hide();
+                        id_progress.html("Syllabifying. Please Wait...").show();
+                    },
+                    success: function(msg) {
+                        id_progress.hide();
+                        id_result.html(msg.result).show();
+                    },
+
+                    error: function(msg) {
+                        id_progress.hide();
+                        id_error.html("Something went wrong. Please try again!").show();
+                    }
+                });
+            } else {
+                id_result.hide();
+                id_error.html("Enter text").show();
+            }
+        });
+    });
+</script>
+{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h1>Syllabifier</h1>
+</div>
+
+<p>A <a href=""http://en.wikipedia.org/wiki/Syllable>syllable</a> is a unit of organization for a sequence of speech sounds. Language of each  word will be detected. Works on Malayalam, Kannada, Bengali, Tamil and Hindi</p>
+
+<p class="help-block">Enter the text for syllabalizing  in the below text area.</p>
+
+<form action="" method="post">
+    <div class="form-group">
+        <textarea name='input_text' id='id1' rows="10" class="form-control ime"></textarea>
+            </div>
+    <div class="form-group">
+        <button class="btn btn-default" type="submit" id="Convert">Convert</button>
+    </div>
+</form>
+
+<div id="progress" class="alert alert-info silpa-hide"></div>
+<div id="errormessage" class="alert alert-danger silpa-hide"></div>
+<p id="result"></p>
+{% endblock %}

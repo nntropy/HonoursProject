@@ -1,0 +1,32 @@
+CHANGES
+=======
+
+* Update template name
+* use libindic.utils
+* Fix readme
+* Update readme
+* Add CI related files
+* Enhance gitignore
+* Make Autopep8 and Flake8 compliant
+* Move tests
+* Convert to namespace package
+* add jquery.ime
+* new ui, fix error introduced in prev commit
+* javascript improvements
+* updated README with doc linka
+* added sphynx based docs
+* added docstrings for sphynx
+* module name had to be changed in the template also
+* template name needs to match module name
+* Ignore .ropeproject created by elpy
+* Module named as indicsyllabifier
+* removed langdetect,use silpa\_common insted
+* added more information to the template
+* fixed template problems
+* pep8 indentation errors fixed
+* minor correction in template
+* template fixed
+* replaced obsolent operator
+* fixed naming and more pep8cleaning
+* fixed incorrect naming
+* initial commit ,template to be added
